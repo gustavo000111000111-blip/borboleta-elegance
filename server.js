@@ -5,7 +5,9 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+// Altere de: const PORT = 3000;
+// Para:
+const PORT = process.env.PORT || 3000;
 
 // Configuração do upload de imagens
 const uploadDir = path.join(__dirname, 'uploads');
