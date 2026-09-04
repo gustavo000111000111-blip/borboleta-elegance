@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Borboleta Elegance</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+    <header class="admin-header">
+        <div class="logo">
+            <img src="img/semfundo.png" alt="Borboleta Elegance Admin">
+        </div>
+        <a href="index.html" class="tab-btn" target="_blank"> Ver Site Principal ↗</a>
+    </header>
+
+    <main class="admin-container">
+        <div class="admin-actions">
+            <h1> Painel do Administrador</h1>
+            <button class="btn-primary" onclick="openProductForm()">+ Adicionar Novo Item</button>
+        </div>
+
+        <!-- Tabela/Grade de Produtos Existentes -->
+        <section class="admin-card">
+            <h2>Itens Cadastrados</h2>
+            <div id="adminProductList" class="admin-product-grid">
+                <!-- Carregado via JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Formulario de Cadastro -->
+    <div class="product-modal-overlay" id="adminModalOverlay" onclick="closeAdminModal()"></div>
+    <div class="admin-modal" id="adminModal">
+        <button class="close-modal" onclick="closeAdminModal()">✕</button>
+        <h2 style="margin-bottom: 15px; color: var(--text-primary);"> Cadastrar Produto</h2>
+        
+        <form id="productForm" onsubmit="handleFormSubmit(event)">
+            <div class="form-group">
+                <label>Nome da Peça *</label>
+                <input type="text" id="pNome" required placeholder="Ex: Vestido Midi Seda Nude">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Preço (R$) *</label>
+                    <input type="number" step="0.01" id="pPreco" required placeholder="149.90">
+                </div>
+                <div class="form-group">
+                    <label>Categoria *</label>
+                    <select id="pCategoria" onchange="toggleSizeSelection()" required>
+                        <option value="roupas">Roupas</option>
+                        <option value="acessorios">Bolsas & Acessórios</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Seleção de Tamanhos (Visível apenas para Roupas) -->
+            <div class="form-group" id="sizeGroup">
+                <label>Tamanhos Disponíveis</label>
+                <div class="size-checkboxes">
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="PP"> PP</label>
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="P"> P</label>
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="M"> M</label>
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="G"> G</label>
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="GG"> GG</label>
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="36"> 36</label>
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="38"> 38</label>
+                    <label class="chip-check"><input type="checkbox" name="tamanhos" value="40"> 40</label>
+                </div>
+            </div>
+
+            <!-- Upload de Fotos (Regra: mínimo 3, máximo 5) -->
+            <div class="form-group">
+                <label>Fotos do Produto * <small style="color: var(--accent-gold);">(Mínimo 3 e Máximo 5 fotos)</small></label>
+                <input type="file" id="pFotos" accept="image/*" multiple onchange="previewImages(event)" style="display: none;">
+                <label for="pFotos" class="upload-dropzone">
+                     Clique para selecionar de 3 a 5 fotos
+                </label>
+                <div id="photoCounter" class="photo-counter">0 de 5 fotos selecionadas</div>
+                <div id="imagePreviews" class="image-previews-grid"></div>
+            </div>
+
+            <button type="submit" id="btnSaveProduct" class="btn-submit" disabled>Salvar e Publicar Item</button>
+        </form>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

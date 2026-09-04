@@ -1,0 +1,13 @@
+# Dependências do Node
+node_modules/
+
+# Banco de dados local
+borboleta.db
+
+# Fotos enviadas em testes locais (mantém a pasta, ignora os arquivos dentro)
+uploads/*
+!uploads/.gitkeep
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db

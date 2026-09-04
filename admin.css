@@ -1,0 +1,225 @@
+.admin-header {
+    background-color: #EFE6DC;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    background-color: var(--accent-gold);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-primary:hover { opacity: 0.9; }
+
+.admin-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.admin-product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.admin-item-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 10px;
+    background: var(--bg-main);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-item-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.admin-item-title {
+    font-weight: 700;
+    font-size: 14px;
+    margin: 8px 0 4px;
+    color: var(--text-dark);
+}
+
+.admin-item-price {
+    color: var(--accent-gold);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Modal Admin */
+.admin-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    z-index: 1001;
+    display: none;
+}
+
+.admin-modal.open { display: block; }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+input[type="text"], input[type="number"], select {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background: var(--bg-main);
+}
+
+.size-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chip-check {
+    background: var(--btn-nude-bg);
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.upload-dropzone {
+    border: 2px dashed var(--accent-gold);
+    padding: 20px;
+    text-align: center;
+    border-radius: 12px;
+    background: var(--bg-main);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.photo-counter {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--accent-gold);
+    margin-top: 4px;
+}
+
+/* Preview de fotos e botão de remoção */
+.image-previews-grid {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.preview-item {
+    position: relative;
+    width: 75px;
+    height: 75px;
+}
+
+.preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--accent-gold);
+}
+
+.remove-photo-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.remove-photo-btn:hover {
+    background: #c0392b;
+    transform: scale(1.15);
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--tab-active-bg);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
