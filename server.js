@@ -107,6 +107,9 @@ app.post('/api/produtos', upload.array('fotos', 5), async (req, res) => {
         return res.status(400).json({ error: "Selecione entre 3 e 5 fotos." });
     }
 
+    // Converte vírgula para ponto e transforma em número decimal
+    const precoTratado = parseFloat(String(preco).replace(',', '.'));
+
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
@@ -114,17 +117,16 @@ app.post('/api/produtos', upload.array('fotos', 5), async (req, res) => {
         const tamanhosTratados = Array.isArray(tamanhos) ? tamanhos : (tamanhos ? [tamanhos] : []);
         const tamanhosJson = JSON.stringify(tamanhosTratados);
 
-        // Insere o produto
+        // Insere o produto usando precoTratado
         const insertProdText = `
-            INSERT INTO produtos (nome, preco, categoria, tamanhos) 
+            INSERT INTO produtos (nome, preco, categoria, tamanhos)
             VALUES ($1, $2, $3, $4) RETURNING id
         `;
-        const prodRes = await client.query(insertProdText, [nome, preco, categoria, tamanhosJson]);
+        const prodRes = await client.query(insertProdText, [nome, precoTratado, categoria, tamanhosJson]);
         const produtoId = prodRes.rows[0].id;
 
-        // Insere as fotos com URLs geradas pelo Cloudinary
         for (let i = 0; i < files.length; i++) {
-            const urlFoto = files[i].path; // URL direta do Cloudinary
+            const urlFoto = files[i].path;
             await client.query(
                 `INSERT INTO produto_fotos (produto_id, url_foto, ordem) VALUES ($1, $2, $3)`,
                 [produtoId, urlFoto, i + 1]
