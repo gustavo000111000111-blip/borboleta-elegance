@@ -56,10 +56,14 @@ function formatProduct(p) {
     if (!Array.isArray(images) || images.length === 0) {
         images = ['https://via.placeholder.com/600'];
     }
+    
+    // Captura o valor independentemente se vem como 'preco' (API) ou 'price' (Mock)
+    const valorPreco = p.preco !== undefined ? p.preco : p.price;
+
     return {
         id: p.id,
         name: p.name || p.nome,
-        price: typeof p.price === 'number' ? `R$ ${p.price.toFixed(2).replace('.', ',')}` : p.price,
+        price: typeof valorPreco === 'number' ? `R$ ${valorPreco.toFixed(2).replace('.', ',')}` : valorPreco,
         imgs: images
     };
 }
