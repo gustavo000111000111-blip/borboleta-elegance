@@ -156,6 +156,16 @@ app.delete('/api/produtos/:id', async (req, res) => {
     }
 });
 
+// Adicione no final do server.js, logo ANTES de app.listen:
+app.use((err, req, res, next) => {
+    console.error("DETALHE DO ERRO:", JSON.stringify(err, null, 2), err.message || err);
+    res.status(500).json({ error: err.message || "Erro interno no servidor" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
