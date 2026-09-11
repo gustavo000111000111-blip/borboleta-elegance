@@ -1,23 +1,11 @@
-// Dados padrão para exibição e fallback (caso a API do servidor falhe)
+// Dados padrão para exibição e fallback
 const mockDatabase = {
     roupas: [
-        { id: 1, name: "Vestido Midi Florido", price: "R$ 129,90", imgs: ["https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600", "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600", "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600"] },
-        { id: 2, name: "Cropped Crochê Verão", price: "R$ 79,90", imgs: ["https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600", "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600", "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600"] },
-        { id: 3, name: "Calça Pantalona Elegance", price: "R$ 149,90", imgs: ["https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600", "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600", "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600"] },
-        { id: 4, name: "Blazer Alfaiataria Chic", price: "R$ 199,90", imgs: ["https://images.unsplash.com/photo-1534126511673-b6899657816a?w=600", "https://images.unsplash.com/photo-1554412933-514a83d2f3c8?w=600", "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=600"] },
-        { id: 5, name: "Saia Midi Plissada", price: "R$ 99,90", imgs: ["https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?w=600", "https://images.unsplash.com/photo-1550639525-c97d455acf70?w=600", "https://images.unsplash.com/photo-1525845859779-54d477ff291f?w=600"] },
-        { id: 6, name: "Conjunto Linho Casual", price: "R$ 179,90", imgs: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600", "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600", "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600"] },
-        { id: 7, name: "Regata Silk Minimal", price: "R$ 59,90", imgs: ["https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600", "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600", "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600"] },
-        { id: 8, name: "Shorts Jeans Vintage", price: "R$ 89,90", imgs: ["https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600", "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600", "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=600"] },
-        { id: 9, name: "Macacão Longo Festa", price: "R$ 219,90", imgs: ["https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600", "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600", "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600"] },
-        { id: 10, name: "Cardigan Tricô Confort", price: "R$ 119,90", imgs: ["https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600", "https://images.unsplash.com/photo-1544441893-675973e31985?w=600", "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=600"] }
+        { id: 1, name: "Vestido Midi Florido", price: "R$ 129,90", imgs: ["https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600"], tamanhos: ["P", "M", "G"] },
+        { id: 2, name: "Cropped Crochê Verão", price: "R$ 79,90", imgs: ["https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600"], tamanhos: ["PP", "P", "M"] }
     ],
     acessorios: [
-        { id: 11, name: "Bolsa Transversal Couro", price: "R$ 139,90", imgs: ["https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600", "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600", "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600"] },
-        { id: 12, name: "Óculos de Sol Retrô", price: "R$ 89,90", imgs: ["https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600", "https://images.unsplash.com/photo-1508296695146-257a814070b4?w=600", "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600"] },
-        { id: 13, name: "Brinco Argola Dourada", price: "R$ 49,90", imgs: ["https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600", "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600", "https://images.unsplash.com/photo-1611591472152-c070ec952c2c?w=600"] },
-        { id: 14, name: "Fone Bluetooth Minimal", price: "R$ 159,90", imgs: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600", "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600", "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=600"] },
-        { id: 15, name: "Bolsa Tote Grande", price: "R$ 169,90", imgs: ["https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600", "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600", "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600"] }
+        { id: 11, name: "Bolsa Transversal Couro", price: "R$ 139,90", imgs: ["https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600"], tamanhos: [] }
     ]
 };
 
@@ -26,8 +14,9 @@ let currentTab = 'roupas';
 let cart = [];
 let activeProduct = null;
 let currentImageIndex = 0;
+let selectedSize = null;
 
-// 1. CARREGAR PRODUTOS DO BACKEND (COM FALLBACK)
+// 1. CARREGAR PRODUTOS DO BACKEND
 async function loadProductsFromBackend() {
     try {
         const response = await fetch('/api/produtos');
@@ -57,14 +46,23 @@ function formatProduct(p) {
         images = ['https://via.placeholder.com/600'];
     }
 
-    // Captura o valor independentemente se vem como 'preco' (API) ou 'price' (Mock)
     const valorPreco = p.preco !== undefined ? p.preco : p.price;
+
+    let tamanhosFormatados = [];
+    if (p.tamanhos) {
+        if (Array.isArray(p.tamanhos)) {
+            tamanhosFormatados = p.tamanhos;
+        } else if (typeof p.tamanhos === 'string') {
+            try { tamanhosFormatados = JSON.parse(p.tamanhos); } catch { tamanhosFormatados = []; }
+        }
+    }
 
     return {
         id: p.id,
         name: p.name || p.nome,
         price: typeof valorPreco === 'number' ? `R$ ${valorPreco.toFixed(2).replace('.', ',')}` : valorPreco,
-        imgs: images
+        imgs: images,
+        tamanhos: tamanhosFormatados
     };
 }
 
@@ -95,8 +93,8 @@ function renderProducts(category) {
             <div class="product-info">
                 <span class="product-title">${product.name}</span>
                 <span class="product-price">${product.price}</span>
-                <button class="buy-btn" onclick="event.stopPropagation(); addToCart('${product.name}', '${product.price}', '${firstImage}')">
-                    Adicionar à Sacola
+                <button class="buy-btn" onclick="event.stopPropagation(); openProductModal(database['${category}'][${index}])">
+                    Ver Detalhes
                 </button>
             </div>
         `;
@@ -104,7 +102,7 @@ function renderProducts(category) {
     });
 }
 
-// 3. TROCA DE ABAS (ROUPAS / ACESSÓRIOS)
+// 3. TROCA DE ABAS
 function switchTab(category, btnElement) {
     if (currentTab === category) return;
     currentTab = category;
@@ -117,13 +115,34 @@ function switchTab(category, btnElement) {
 function openProductModal(product) {
     activeProduct = product;
     currentImageIndex = 0;
+    selectedSize = null;
+
     updateModalImage();
 
     document.getElementById('modalTitle').innerText = product.name;
     document.getElementById('modalPrice').innerText = product.price;
 
+    const sizesContainer = document.getElementById('modalSizesContainer');
+    const sizesDiv = document.getElementById('modalSizes');
+
+    if (product.tamanhos && product.tamanhos.length > 0) {
+        sizesContainer.style.display = 'block';
+        sizesDiv.innerHTML = product.tamanhos.map(size =>
+            `<button type="button" class="size-btn" onclick="selectSize('${size}', this)">${size}</button>`
+        ).join('');
+    } else {
+        sizesContainer.style.display = 'none';
+        sizesDiv.innerHTML = '';
+    }
+
     document.getElementById('productModal').classList.add('open');
     document.getElementById('productModalOverlay').classList.add('open');
+}
+
+function selectSize(size, btnElement) {
+    selectedSize = size;
+    document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('selected'));
+    btnElement.classList.add('selected');
 }
 
 function closeProductModal() {
@@ -153,7 +172,7 @@ function prevImage() {
     updateModalImage();
 }
 
-// Suporte a deslize de dedo (Swipe Touch)
+// Swipe Touch
 let touchStartX = 0;
 let touchEndX = 0;
 const modalGallery = document.getElementById('modalGallery');
@@ -176,14 +195,20 @@ function handleSwipe() {
 
 function addModalProductToCart() {
     if (!activeProduct) return;
+
+    if (activeProduct.tamanhos && activeProduct.tamanhos.length > 0 && !selectedSize) {
+        alert("Por favor, selecione um tamanho antes de adicionar à sacola.");
+        return;
+    }
+
     const mainImg = activeProduct.imgs[0] || '';
-    addToCart(activeProduct.name, activeProduct.price, mainImg);
+    addToCart(activeProduct.name, activeProduct.price, mainImg, selectedSize);
     closeProductModal();
 }
 
-// 5. GERENCIAMENTO DO CARRINHO / SACOLA
-function addToCart(name, price, img) {
-    cart.push({ name, price, img });
+// 5. GERENCIAMENTO DO CARRINHO
+function addToCart(name, price, img, size = null) {
+    cart.push({ name, price, img, size });
     updateCartUI();
 
     const cartBtn = document.querySelector('.cart-btn');
@@ -224,7 +249,10 @@ function updateCartUI() {
             <div class="cart-item">
                 <div style="display:flex; align-items:center; gap:10px;">
                     ${item.img ? `<img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;">` : ''}
-                    <span><b>${item.name}</b><br><small style="color:var(--accent-gold); font-weight:bold;">${item.price}</small></span>
+                    <span>
+                        <b>${item.name}</b> ${item.size ? `<span style="font-size:12px; color:#777;">(Tam: ${item.size})</span>` : ''}<br>
+                        <small style="color:var(--accent-gold); font-weight:bold;">${item.price}</small>
+                    </span>
                 </div>
                 <button onclick="removeItem(${index})" style="background:none; border:none; color:#e76f51; cursor:pointer; font-weight:bold; font-size:12px;">Remover</button>
             </div>
@@ -251,7 +279,7 @@ function toggleCart() {
     document.getElementById('cartOverlay').classList.toggle('open');
 }
 
-// 6. FINALIZAR COMPRA VIA WHATSAPP
+// 6. WHATSAPP
 function checkoutWhatsApp() {
     if (cart.length === 0) {
         alert("Sua sacola está vazia!");
@@ -262,7 +290,8 @@ function checkoutWhatsApp() {
     let message = "Olá! Gostaria de finalizar a compra dos seguintes itens na *Loja Borboleta*:\n\n";
 
     cart.forEach((item, idx) => {
-        message += `${idx + 1}. *${item.name}* - ${item.price}\n`;
+        const sizeInfo = item.size ? ` (Tamanho: ${item.size})` : '';
+        message += `${idx + 1}. *${item.name}*${sizeInfo} - ${item.price}\n`;
         const numericPrice = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.').trim()) || 0;
         total += numericPrice;
     });
@@ -273,5 +302,4 @@ function checkoutWhatsApp() {
     window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
 }
 
-// Inicializa o script buscando os produtos no servidor
 loadProductsFromBackend();
