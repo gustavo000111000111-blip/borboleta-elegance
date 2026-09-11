@@ -22,7 +22,6 @@
             <button class="btn-primary" onclick="openProductForm()">+ Adicionar Novo Item</button>
         </div>
 
-        <!-- Tabela/Grade de Produtos Existentes -->
         <section class="admin-card">
             <h2>Itens Cadastrados</h2>
             <div id="adminProductList" class="admin-product-grid">
@@ -31,7 +30,7 @@
         </section>
     </main>
 
-    <!-- Modal de Formulario de Cadastro -->
+    <!-- Modal Admin -->
     <div class="product-modal-overlay" id="adminModalOverlay" onclick="closeAdminModal()"></div>
     <div class="admin-modal" id="adminModal">
         <button class="close-modal" onclick="closeAdminModal()">✕</button>
@@ -40,7 +39,7 @@
         <form id="productForm" onsubmit="handleFormSubmit(event)">
             <div class="form-group">
                 <label>Nome da Peça *</label>
-                <input type="text" id="pNome" required placeholder="Ex: Vestido Midi Seda Nude">
+                <input type="text" id="pNome" required placeholder="Ex: Vestido Midi Seda">
             </div>
 
             <div class="form-row">
@@ -57,7 +56,13 @@
                 </div>
             </div>
 
-            <!-- Seleção de Tamanhos (Visível apenas para Roupas) -->
+            <!-- Campo de Cor -->
+            <div class="form-group">
+                <label>Cor da Peça *</label>
+                <input type="text" id="pCor" required placeholder="Ex: Nude, Off-White, Preto">
+            </div>
+
+            <!-- Seleção de Tamanhos -->
             <div class="form-group" id="sizeGroup">
                 <label>Tamanhos Disponíveis</label>
                 <div class="size-checkboxes">
@@ -72,7 +77,7 @@
                 </div>
             </div>
 
-            <!-- Upload de Fotos (Regra: mínimo 3, máximo 5) -->
+            <!-- Upload de Fotos -->
             <div class="form-group">
                 <label>Fotos do Produto * <small style="color: var(--accent-gold);">(Mínimo 3 e Máximo 5 fotos)</small></label>
                 <input type="file" id="pFotos" accept="image/*" multiple onchange="previewImages(event)" style="display: none;">

@@ -1,15 +1,4 @@
-// Dados padrão para exibição e fallback
-const mockDatabase = {
-    roupas: [
-        { id: 1, name: "Vestido Midi Florido", price: "R$ 129,90", imgs: ["https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600"], tamanhos: ["P", "M", "G"] },
-        { id: 2, name: "Cropped Crochê Verão", price: "R$ 79,90", imgs: ["https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600"], tamanhos: ["PP", "P", "M"] }
-    ],
-    acessorios: [
-        { id: 11, name: "Bolsa Transversal Couro", price: "R$ 139,90", imgs: ["https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600"], tamanhos: [] }
-    ]
-};
-
-let database = JSON.parse(JSON.stringify(mockDatabase));
+let database = { roupas: [], acessorios: [] };
 let currentTab = 'roupas';
 let cart = [];
 let activeProduct = null;
@@ -21,7 +10,7 @@ async function loadProductsFromBackend() {
     try {
         const response = await fetch('/api/produtos');
         if (!response.ok) throw new Error('Falha na requisição');
-
+        
         const data = await response.json();
 
         if (Array.isArray(data) && data.length > 0) {
@@ -31,7 +20,7 @@ async function loadProductsFromBackend() {
             };
         }
     } catch (error) {
-        console.warn('API indisponível. Utilizando banco local pré-carregado.');
+        console.warn('API indisponível. Verifique a conexão.');
     } finally {
         renderProducts(currentTab);
     }
@@ -45,7 +34,7 @@ function formatProduct(p) {
     if (!Array.isArray(images) || images.length === 0) {
         images = ['https://via.placeholder.com/600'];
     }
-
+    
     const valorPreco = p.preco !== undefined ? p.preco : p.price;
 
     let tamanhosFormatados = [];
@@ -62,11 +51,12 @@ function formatProduct(p) {
         name: p.name || p.nome,
         price: typeof valorPreco === 'number' ? `R$ ${valorPreco.toFixed(2).replace('.', ',')}` : valorPreco,
         imgs: images,
-        tamanhos: tamanhosFormatados
+        tamanhos: tamanhosFormatados,
+        cor: p.cor || ''
     };
 }
 
-// 2. RENDERIZAÇÃO DA GRADE DE PRODUTOS
+// 2. RENDERIZAÇÃO
 function renderProducts(category) {
     const grid = document.getElementById('productGrid');
     grid.innerHTML = '';
@@ -102,7 +92,6 @@ function renderProducts(category) {
     });
 }
 
-// 3. TROCA DE ABAS
 function switchTab(category, btnElement) {
     if (currentTab === category) return;
     currentTab = category;
@@ -111,7 +100,7 @@ function switchTab(category, btnElement) {
     renderProducts(category);
 }
 
-// 4. MODAL E GALERIA
+// 3. MODAL
 function openProductModal(product) {
     activeProduct = product;
     currentImageIndex = 0;
@@ -122,12 +111,22 @@ function openProductModal(product) {
     document.getElementById('modalTitle').innerText = product.name;
     document.getElementById('modalPrice').innerText = product.price;
 
+    // Cor
+    const colorEl = document.getElementById('modalColor');
+    if (product.cor) {
+        colorEl.innerText = `Cor: ${product.cor}`;
+        colorEl.style.display = 'block';
+    } else {
+        colorEl.style.display = 'none';
+    }
+
+    // Tamanho
     const sizesContainer = document.getElementById('modalSizesContainer');
     const sizesDiv = document.getElementById('modalSizes');
 
     if (product.tamanhos && product.tamanhos.length > 0) {
         sizesContainer.style.display = 'block';
-        sizesDiv.innerHTML = product.tamanhos.map(size =>
+        sizesDiv.innerHTML = product.tamanhos.map(size => 
             `<button type="button" class="size-btn" onclick="selectSize('${size}', this)">${size}</button>`
         ).join('');
     } else {
@@ -172,27 +171,6 @@ function prevImage() {
     updateModalImage();
 }
 
-// Swipe Touch
-let touchStartX = 0;
-let touchEndX = 0;
-const modalGallery = document.getElementById('modalGallery');
-
-if (modalGallery) {
-    modalGallery.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    modalGallery.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, { passive: true });
-}
-
-function handleSwipe() {
-    if (touchEndX < touchStartX - 50) nextImage();
-    if (touchEndX > touchStartX + 50) prevImage();
-}
-
 function addModalProductToCart() {
     if (!activeProduct) return;
 
@@ -202,13 +180,13 @@ function addModalProductToCart() {
     }
 
     const mainImg = activeProduct.imgs[0] || '';
-    addToCart(activeProduct.name, activeProduct.price, mainImg, selectedSize);
+    addToCart(activeProduct.name, activeProduct.price, mainImg, selectedSize, activeProduct.cor);
     closeProductModal();
 }
 
-// 5. GERENCIAMENTO DO CARRINHO
-function addToCart(name, price, img, size = null) {
-    cart.push({ name, price, img, size });
+// 4. CARRINHO
+function addToCart(name, price, img, size = null, color = null) {
+    cart.push({ name, price, img, size, color });
     updateCartUI();
 
     const cartBtn = document.querySelector('.cart-btn');
@@ -224,9 +202,7 @@ function showToast() {
     const toast = document.getElementById('toastNotification');
     if (!toast) return;
     toast.classList.add('show');
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, 2000);
+    setTimeout(() => toast.classList.remove('show'), 2000);
 }
 
 function updateCartUI() {
@@ -245,12 +221,16 @@ function updateCartUI() {
         const numericPrice = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.').trim()) || 0;
         total += numericPrice;
 
+        const sizeTxt = item.size ? ` (Tam: ${item.size})` : '';
+        const colorTxt = item.color ? ` - Cor: ${item.color}` : '';
+
         html += `
             <div class="cart-item">
                 <div style="display:flex; align-items:center; gap:10px;">
                     ${item.img ? `<img src="${item.img}" style="width:40px; height:40px; object-fit:cover; border-radius:6px;">` : ''}
                     <span>
-                        <b>${item.name}</b> ${item.size ? `<span style="font-size:12px; color:#777;">(Tam: ${item.size})</span>` : ''}<br>
+                        <b>${item.name}</b><br>
+                        <small style="color:#666;">${sizeTxt}${colorTxt}</small><br>
                         <small style="color:var(--accent-gold); font-weight:bold;">${item.price}</small>
                     </span>
                 </div>
@@ -279,7 +259,7 @@ function toggleCart() {
     document.getElementById('cartOverlay').classList.toggle('open');
 }
 
-// 6. WHATSAPP
+// 5. WHATSAPP
 function checkoutWhatsApp() {
     if (cart.length === 0) {
         alert("Sua sacola está vazia!");
@@ -291,7 +271,8 @@ function checkoutWhatsApp() {
 
     cart.forEach((item, idx) => {
         const sizeInfo = item.size ? ` (Tamanho: ${item.size})` : '';
-        message += `${idx + 1}. *${item.name}*${sizeInfo} - ${item.price}\n`;
+        const colorInfo = item.color ? ` (Cor: ${item.color})` : '';
+        message += `${idx + 1}. *${item.name}*${sizeInfo}${colorInfo} - ${item.price}\n`;
         const numericPrice = parseFloat(item.price.replace('R$', '').replace('.', '').replace(',', '.').trim()) || 0;
         total += numericPrice;
     });
