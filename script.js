@@ -32,7 +32,7 @@ async function loadProductsFromBackend() {
     try {
         const response = await fetch('/api/produtos');
         if (!response.ok) throw new Error('Falha na requisição');
-        
+
         const data = await response.json();
 
         if (Array.isArray(data) && data.length > 0) {
@@ -56,7 +56,7 @@ function formatProduct(p) {
     if (!Array.isArray(images) || images.length === 0) {
         images = ['https://via.placeholder.com/600'];
     }
-    
+
     // Captura o valor independentemente se vem como 'preco' (API) ou 'price' (Mock)
     const valorPreco = p.preco !== undefined ? p.preco : p.price;
 
