@@ -169,3 +169,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+app.get('/ping', (req, res) => {
+    res.status(200).send('pong');
+});
