@@ -14,7 +14,6 @@
     </div>
     <div class="cart-icon-container">
         <button class="cart-btn" onclick="toggleCart()" aria-label="Ver Sacola">
-            
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="9" cy="21" r="1"></circle>
                 <circle cx="20" cy="21" r="1"></circle>
@@ -73,6 +72,13 @@
         <div class="modal-info">
             <h2 id="modalTitle"></h2>
             <p id="modalPrice" class="modal-price"></p>
+
+            <!-- Seleção de Tamanho -->
+            <div id="modalSizesContainer" class="modal-sizes-container" style="display: none;">
+                <label class="size-label">Selecione o Tamanho:</label>
+                <div id="modalSizes" class="size-options"></div>
+            </div>
+
             <button class="buy-btn-modal" onclick="addModalProductToCart()">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -87,8 +93,8 @@
     <div class="toast" id="toastNotification">Produto adicionado à sacola!</div>
 
     <footer>
-    Desenvolvido por <a href="https://devbleed.vercel.app" target="_blank">DevBleed</a>
-</footer>
+        Desenvolvido por <a href="https://devbleed.vercel.app" target="_blank">DevBleed</a>
+    </footer>
 
     <script src="script.js"></script>
 </body>
